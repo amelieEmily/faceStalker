@@ -18,7 +18,7 @@ def takePictureAndSave():
 
         # Generate a random number for the image file name
         index = randint(1000, 9999)
-        filename = "image" + str(index) + ".jpg"
+        filename = "images/image" + str(index) + ".jpg"
 
         # Save image
         imwrite(filename, img)
