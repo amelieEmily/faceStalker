@@ -10,7 +10,7 @@ headers = {
 
 params = urllib.parse.urlencode({
     # Request parameters
-    'returnFaceId': 'true',
+    'returnFaceId': 'false',
     'returnFaceLandmarks': 'false',
     'returnFaceAttributes': "emotion",
 })
@@ -25,13 +25,14 @@ def analysisPhoto(filename):
         conn = http.client.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
         conn.request("POST", "/face/v1.0/detect?%s" % params, body, headers)
         response = conn.getresponse()
-        data = response.read()
-        print(data)
+        data = json.loads(response.read())
+        print(data[0]["faceAttributes"]["emotion"])
         conn.close()
+        return data[0]["faceAttributes"]["emotion"]
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-analysisPhoto("images/image4855.jpg")
+#analysisPhoto("images/image6471.jpg")
 
 
 # import http.client, urllib.request, urllib.parse, urllib.error, base64
