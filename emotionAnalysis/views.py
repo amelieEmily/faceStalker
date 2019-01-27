@@ -38,8 +38,8 @@ def callback(request):
 
     print("Median:" + str(median))
 
-    data = u'Message number {}'.format(median)
-    # Data must be a bytestring
+    data = u'{}'.format(median)
+    # Data must be a bytestringf
     data = data.encode('utf-8')
     # When you publish a message, the client returns a future.
     future = publisher.publish(topic_path, data=data)
