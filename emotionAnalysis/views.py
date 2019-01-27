@@ -80,8 +80,8 @@ emotion_scores = {
     "contempt": -5,
     "disgust": -10,
     "fear": -4,
-    "happiness": 9,
-    "neutral": -1,
+    "happiness": 8,
+    "neutral": -2,
     "sadness": -6,
     "surprise": 6
 }
