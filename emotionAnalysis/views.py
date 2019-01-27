@@ -6,6 +6,7 @@ import os
 from google.cloud import pubsub_v1
 
 def callback(request):
+    request.ack()
     filenames = []
 
     scores = []
@@ -29,9 +30,15 @@ def callback(request):
         scores.append(score)
 
     # Calculate the median of all the shots
-    median = statistics.median(scores)
+    median = statistics.mean(scores)
 
     print(median)
+
+    data = u'Message number {}'.format(median)
+    # Data must be a bytestring
+    data = data.encode('utf-8')
+    # When you publish a message, the client returns a future.
+    future = publisher.publish(topic_path, data=data)
 
     # Response soth the emotion score of the person
     return HttpResponse(median)
@@ -47,10 +54,15 @@ subscription_name = 'projects/{project_id}/subscriptions/{sub}'.format(
     sub='machine3',  # Set this to something appropriate.
 )
 
+return_topic = 'projects/{project_id}/topics/{topic}'.format(
+    project_id='huddle72',
+    topic='faceEmotion',  # Set this to something appropriate.
+)
 
-# def callback(message):
-#     print(message.data)
-#     message.ack()
+publisher = pubsub_v1.PublisherClient()
+topic_path = publisher.topic_path('huddle72', 'faceEmotion')
+
+
 
 future = subscriber.subscribe(subscription_name, callback)
 
