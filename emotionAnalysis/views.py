@@ -57,7 +57,7 @@ topic_name = 'projects/{project_id}/topics/{topic}'.format(
 )
 subscription_name = 'projects/{project_id}/subscriptions/{sub}'.format(
     project_id='huddle72',
-    sub='machine3',  # Set this to something appropriate.
+    sub='machine1',  # Set this to something appropriate.
 )
 
 return_topic = 'projects/{project_id}/topics/{topic}'.format(
@@ -80,8 +80,8 @@ emotion_scores = {
     "contempt": -5,
     "disgust": -10,
     "fear": -4,
-    "happiness": 10,
-    "neutral": 0,
-    "sadness": -2,
+    "happiness": 9,
+    "neutral": -1,
+    "sadness": -6,
     "surprise": 6
 }
