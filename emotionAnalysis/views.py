@@ -20,6 +20,10 @@ def callback(request):
         # Analyse the emotion of the face
         emotions = emotion.analysisPhoto("" + filename)
 
+        if not emotions:
+            scores.append(0)
+            continue
+
         score = 0
         # Add up the score of each emotion
         for key, value in emotion_scores.items():
@@ -32,13 +36,15 @@ def callback(request):
     # Calculate the median of all the shots
     median = statistics.mean(scores)
 
-    print(median)
+    print("Median:" + str(median))
 
     data = u'Message number {}'.format(median)
     # Data must be a bytestring
     data = data.encode('utf-8')
     # When you publish a message, the client returns a future.
     future = publisher.publish(topic_path, data=data)
+
+    print("Message sent: " + str(median))
 
     # Response soth the emotion score of the person
     return HttpResponse(median)

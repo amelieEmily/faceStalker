@@ -37,9 +37,10 @@ def analysisPhoto(filename):
         conn.request("POST", "/face/v1.0/detect?%s" % params, body, headers)
         response = conn.getresponse()
         data = json.loads(response.read())
-        print(response.read())
         print(data)
         conn.close()
+        if not data:
+            return []
         return data[0]["faceAttributes"]["emotion"]
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
